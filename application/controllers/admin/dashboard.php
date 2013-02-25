@@ -13,7 +13,6 @@ Class Dashboard extends Admin_Controller
     {
         parent::__construct();
         $this->data['meta_title'] = 'My awesome CMS';
-        $this->data['title'] = 'Please Log in';
     }
 
     public function index()
