@@ -1,27 +1,22 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Shibly
- * Date: 2/23/13
- * Time: 3:38 PM
- * To change this template use File | Settings | File Templates.
- */
+class Dashboard extends Admin_Controller {
 
-Class Dashboard extends Admin_Controller
-{
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
-        $this->data['meta_title'] = 'My awesome CMS';
     }
 
-    public function index()
-    {
-        $this->load->view('admin/_layout_main', $this->data);
+    public function index() {
+    	// Fetch recently modified articles
+    	$this->load->model('article_m');
+    	$this->db->order_by('modified desc');
+    	$this->db->limit(5);
+    	$this->data['recent_articles'] = $this->article_m->get();
+    	
+    	$this->data['subview'] = 'admin/dashboard/index';
+    	$this->load->view('admin/_layout_main', $this->data);
     }
-
-    public function modal()
-    {
-        $this->load->view('admin/_layout_modal', $this->data);
+    
+    public function modal() {
+    	$this->load->view('admin/_layout_modal', $this->data);
     }
 }
